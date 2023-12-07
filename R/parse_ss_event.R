@@ -1,29 +1,25 @@
-# Based on https://github.com/mpetazzoni/sseclient/blob/master/sseclient/__init__.py
-# Use "https://postman-echo.com/server-events/10" to test
+parse_ss_event <- function(event) {
+	chunks <- event |> 
+		stringr::str_split("\n\n") |>
+		purrr::pluck(1L)
+	
+	chunks |> 
+		purrr::map(parse_chunk) |> 
+		purrr::discard(rlang::is_empty)
+}
 
-# See HTML spec: https://html.spec.whatwg.org/multipage/server-sent-events.html#server-sent-events
 
-buffer <- character()
-httr2::request("https://postman-echo.com/server-events/5") %>%
-	httr2::req_body_json(data = list(
-		event = "message",
-		request = "POST"
-	)) %>%
-	httr2::req_perform_stream(callback = \(x) {
-		event <- rawToChar(x)
-		parse_event(event) |> str()
-	})
+parse_chunk <- function(chunk) {
+	lines <- chunk |>
+		stringr::str_split("\n") |>
+		purrr::pluck(1L) 
+	
+	lines |> 
+		purrr::map(parse_line) |> 
+		purrr::discard(rlang::is_empty) |> # ignore comments
+		purrr::reduce(c, .init = list())
+}
 
-# Example Usage:
-event_string <- "data: Hello, World!\nevent: custom-event\nid: 123\nretry: 1000\n\n"
-
-events <- buffer |>
-	stringr::str_split("\n\n") |>
-	purrr::pluck(1L)
-
-lines <- events[[1]] |>
-	stringr::str_split("\n") |>
-	purrr::pluck(1L)
 
 parse_line <- function(line) {
 	# https://html.spec.whatwg.org/multipage/server-sent-events.html#event-stream-interpretation
@@ -57,23 +53,3 @@ parse_line <- function(line) {
 	output
 }
 
-parse_chunk <- function(chunk) {
-	lines <- chunk |>
-		stringr::str_split("\n") |>
-		purrr::pluck(1L) 
-	
-	lines |> 
-		purrr::map(parse_line) |> 
-		purrr::compact() |> # ignore comments
-		purrr::reduce(c, .init = list())
-}
-
-parse_ss_event <- function(event) {
-	chunks <- event |> 
-		stringr::str_split("\n\n") |>
-		purrr::pluck(1L)
-	
-	chunks |> 
-		purrr::map(parse_chunk) |> 
-		purrr::discard(rlang::is_empty)
-}
