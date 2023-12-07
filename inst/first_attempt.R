@@ -11,8 +11,22 @@ httr2::request("https://postman-echo.com/server-events/5") %>%
 	)) %>%
 	httr2::req_perform_stream(callback = \(x) {
 		event <- rawToChar(x)
-		parse_event(event) |> str()
+		buffer <<- c(buffer, event)
 	})
+
+parser <- SSEParser$new()
+httr2::request("https://postman-echo.com/server-events/5") %>%
+	httr2::req_body_json(data = list(
+		event = "message",
+		request = "POST"
+	)) %>%
+	httr2::req_perform_stream(callback = \(x) {
+		event <- rawToChar(x)
+		parser$parse_sse(event)
+		TRUE
+	})
+
+parser$events
 
 # Example Usage:
 event_string <- "data: Hello, World!\nevent: custom-event\nid: 123\nretry: 1000\n\n"
