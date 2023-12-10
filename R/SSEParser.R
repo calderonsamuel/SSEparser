@@ -6,6 +6,8 @@
 #' 
 #' @param event A server sent event as specified in the [HTML spec](https://html.spec.whatwg.org/multipage/server-sent-events.html#server-sent-events).
 #' 
+#' @importFrom R6 R6Class
+#' 
 #' @export
 SSEparser <- R6::R6Class(
 	classname = "SSEparser",
