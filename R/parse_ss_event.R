@@ -1,22 +1,22 @@
 parse_ss_event <- function(event) {
-	chunks <- event |> 
-		stringr::str_split("\n\n") |>
+	chunks <- event %>% 
+		stringr::str_split("\n\n") %>%
 		purrr::pluck(1L)
 	
-	chunks |> 
-		purrr::map(parse_chunk) |> 
+	chunks %>% 
+		purrr::map(parse_chunk) %>% 
 		purrr::discard(rlang::is_empty)
 }
 
 
 parse_chunk <- function(chunk) {
-	lines <- chunk |>
-		stringr::str_split("\n") |>
+	lines <- chunk %>%
+		stringr::str_split("\n") %>%
 		purrr::pluck(1L) 
 	
-	lines |> 
-		purrr::map(parse_line) |> 
-		purrr::discard(rlang::is_empty) |> # ignore comments
+	lines %>% 
+		purrr::map(parse_line) %>% 
+		purrr::discard(rlang::is_empty) %>% # ignore comments
 		purrr::reduce(c, .init = list())
 }
 
@@ -39,7 +39,7 @@ parse_line <- function(line) {
 	if (stringr::str_detect(line, ":")) {
 		splitted <- stringr::str_split_1(line, ":")
 		field <- splitted[1]
-		value <- paste0(splitted[2:length(splitted)], collapse = ":") |> 
+		value <- paste0(splitted[2:length(splitted)], collapse = ":") %>% 
 			stringr::str_trim("left")
 	} else {
 		field <- line
