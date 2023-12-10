@@ -19,12 +19,12 @@ SSEparser <- R6::R6Class(
 		#' @description Takes a string representing that comes from a server sent event and parses it to an R list. 
 		#' If you need finer control for parsing the data received, is better to utilize this method inside of a child class instead of overwriting it.
 		parse_sse = function(event) {
-			chunks <- event |> 
-				stringr::str_split("\n\n") |>
+			chunks <- event %>% 
+				stringr::str_split("\n\n") %>%
 				purrr::pluck(1L)
 			
-			parsed_chunks <-  chunks |> 
-				purrr::map(private$parse_chunk) |> 
+			parsed_chunks <-  chunks %>% 
+				purrr::map(private$parse_chunk) %>% 
 				purrr::discard(rlang::is_empty)
 			
 			self$events <- c(self$events, parsed_chunks)
@@ -40,13 +40,13 @@ SSEparser <- R6::R6Class(
 	private = list(
 		
 		parse_chunk = function(chunk) {
-			lines <- chunk |>
-				stringr::str_split("\n") |>
+			lines <- chunk %>%
+				stringr::str_split("\n") %>%
 				purrr::pluck(1L) 
 			
-			lines |> 
-				purrr::map(private$parse_line) |> 
-				purrr::discard(rlang::is_empty) |> # ignore comments
+			lines %>% 
+				purrr::map(private$parse_line) %>% 
+				purrr::discard(rlang::is_empty) %>% # ignore comments
 				purrr::reduce(c, .init = list())
 		},
 		
@@ -68,7 +68,7 @@ SSEparser <- R6::R6Class(
 			if (stringr::str_detect(line, ":")) {
 				splitted <- stringr::str_split_1(line, ":")
 				field <- splitted[1]
-				value <- paste0(splitted[2:length(splitted)], collapse = ":") |> 
+				value <- paste0(splitted[2:length(splitted)], collapse = ":") %>% 
 					stringr::str_trim("left")
 			} else {
 				field <- line
