@@ -1,7 +1,21 @@
-SSEParser <- R6::R6Class(
-	classname = "SSEParser",
+#' Parse a Server Sent Event
+#' 
+#' @description
+#' This class can help you parse a single server sent event or a stream of them. 
+#' You can inherit the class for a custom aplication. 
+#' 
+#' @param event A server sent event as specified in the [HTML spec](https://html.spec.whatwg.org/multipage/server-sent-events.html#server-sent-events).
+#' 
+#' @export
+SSEparser <- R6::R6Class(
+	classname = "SSEparser",
 	public = list(
+		
+		#' @field events List  that contains all the events parsed. When the class is initialized, is just an empty list.
 		events = NULL,
+		
+		#' @description Takes a string representing that comes from a server sent event and parses it to an R list. 
+		#' If you need finer control for parsing the data received, is better to utilize this method inside of a child class instead of overwriting it.
 		parse_sse = function(event) {
 			chunks <- event |> 
 				stringr::str_split("\n\n") |>
@@ -15,6 +29,8 @@ SSEParser <- R6::R6Class(
 			
 			invisible(self)
 		},
+		
+		#' @description Create a new SSE parser
 		initialize = function() {
 			self$events <- list()
 		}
