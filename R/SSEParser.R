@@ -35,7 +35,7 @@ SSEparser <- R6::R6Class(
 				purrr::map(private$parse_chunk) %>% 
 				purrr::discard(rlang::is_empty)
 			
-			self$append_parsed_event(parsed_event)
+			self$append_parsed_sse(parsed_event)
 			
 			invisible(self)
 		},
