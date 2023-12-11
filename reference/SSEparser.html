@@ -64,19 +64,35 @@ You can inherit the class for a custom aplication.</p>
 <div class="section">
 <h3 id="public-methods">Public methods<a class="anchor" aria-label="anchor" href="#public-methods"></a></h3>
 
-<ul><li><p><a href="#method-SSEparser-parse_sse"><code>SSEparser$parse_sse()</code></a></p></li>
+<ul><li><p><a href="#method-SSEparser-append_parsed_sse"><code>SSEparser$append_parsed_sse()</code></a></p></li>
+<li><p><a href="#method-SSEparser-parse_sse"><code>SSEparser$parse_sse()</code></a></p></li>
 <li><p><a href="#method-SSEparser-new"><code>SSEparser$new()</code></a></p></li>
 <li><p><a href="#method-SSEparser-clone"><code>SSEparser$clone()</code></a></p></li>
-</ul></div><p></p><hr><a id="method-SSEparser-parse_sse"></a><div class="section">
-<h3 id="method-parse-sse-">Method <code>parse_sse()</code><a class="anchor" aria-label="anchor" href="#method-parse-sse-"></a></h3>
-<p>Takes a string representing that comes from a server sent event and parses it to an R list.
-If you need finer control for parsing the data received, is better to utilize this method inside of a child class instead of overwriting it.</p><div class="section">
+</ul></div><p></p><hr><a id="method-SSEparser-append_parsed_sse"></a><div class="section">
+<h3 id="method-append-parsed-sse-">Method <code>append_parsed_sse()</code><a class="anchor" aria-label="anchor" href="#method-append-parsed-sse-"></a></h3>
+<p>Takes a parsed event and appends it to the <code>events</code> field. You can overwrite this method if you decide to extend this class.</p><div class="section">
 <h4 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">SSEparser</span><span class="op">$</span><span class="fu">parse_sse</span><span class="op">(</span><span class="va">event</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">SSEparser</span><span class="op">$</span><span class="fu">append_parsed_sse</span><span class="op">(</span><span class="va">parsed_event</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
 <h4 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>parsed_event</code></dt>
+<dd><p>Event to append to the <code>events</code> field.</p></dd>
+
+
+</dl><p></p></div>
+</div>
+
+</div><p></p><hr><a id="method-SSEparser-parse_sse"></a><div class="section">
+<h3 id="method-parse-sse-">Method <code>parse_sse()</code><a class="anchor" aria-label="anchor" href="#method-parse-sse-"></a></h3>
+<p>Takes a string that comes from a server sent event and parses it to an R list. You should never overwrite this method.</p><div class="section">
+<h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">SSEparser</span><span class="op">$</span><span class="fu">parse_sse</span><span class="op">(</span><span class="va">event</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="arguments-1">Arguments<a class="anchor" aria-label="anchor" href="#arguments-1"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>event</code></dt>
 <dd><p>A server sent event as specified in the <a href="https://html.spec.whatwg.org/multipage/server-sent-events.html#server-sent-events" class="external-link">HTML spec</a>.</p></dd>
 
@@ -87,7 +103,7 @@ If you need finer control for parsing the data received, is better to utilize th
 </div><p></p><hr><a id="method-SSEparser-new"></a><div class="section">
 <h3 id="method-new-">Method <code>new()</code><a class="anchor" aria-label="anchor" href="#method-new-"></a></h3>
 <p>Create a new SSE parser</p><div class="section">
-<h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
+<h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va"><a href="../reference/SSEparser.html">SSEparser</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
@@ -95,12 +111,12 @@ If you need finer control for parsing the data received, is better to utilize th
 </div><p></p><hr><a id="method-SSEparser-clone"></a><div class="section">
 <h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
 <p>The objects of this class are cloneable with this method.</p><div class="section">
-<h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
+<h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">SSEparser</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-1">Arguments<a class="anchor" aria-label="anchor" href="#arguments-1"></a></h4>
+<h4 id="arguments-2">Arguments<a class="anchor" aria-label="anchor" href="#arguments-2"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>deep</code></dt>
 <dd><p>Whether to make a deep clone.</p></dd>
 
