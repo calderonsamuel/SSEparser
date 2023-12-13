@@ -19,7 +19,13 @@ Server-Sent Events and to build on top of it.
 
 ## Installation
 
-You can install the development version of SSEparser like so:
+You can install `SEEparser` from CRAN like so:
+
+``` r
+install.packages("gptstudio")
+```
+
+Alternatively, you can install the development version like so:
 
 ``` r
 pak::pak("calderonsamuel/SSEparser")
@@ -88,7 +94,7 @@ str(parser$events)
 #>   ..$ data : chr "{\"event\":\"message\",\"request\":\"POST\"}"
 #>   ..$ id   : chr "1"
 #>  $ :List of 3
-#>   ..$ event: chr "message"
+#>   ..$ event: chr "error"
 #>   ..$ data : chr "{\"event\":\"message\",\"request\":\"POST\"}"
 #>   ..$ id   : chr "2"
 #>  $ :List of 3
@@ -132,7 +138,7 @@ SSEparser$public_methods$append_parsed_sse
 #>     self$events <- c(self$events, list(parsed_event))
 #>     invisible(self)
 #> }
-#> <bytecode: 0x00000249c3f07358>
+#> <bytecode: 0x000001933515c630>
 #> <environment: namespace:SSEparser>
 ```
 
@@ -156,13 +162,13 @@ response <- httr2::request("https://postman-echo.com/server-events/3") %>%
 str(parser$events)
 #> List of 3
 #>  $ :List of 3
-#>   ..$ event: chr "ping"
+#>   ..$ event: chr "info"
 #>   ..$ data :List of 2
 #>   .. ..$ event  : chr "message"
 #>   .. ..$ request: chr "POST"
 #>   ..$ id   : chr "1"
 #>  $ :List of 3
-#>   ..$ event: chr "info"
+#>   ..$ event: chr "ping"
 #>   ..$ data :List of 2
 #>   .. ..$ event  : chr "message"
 #>   .. ..$ request: chr "POST"
