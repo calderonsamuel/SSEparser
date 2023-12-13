@@ -25,10 +25,16 @@
     <loc>https://calderonsamuel.github.io/SSEparser/index.html</loc>
   </url>
   <url>
+    <loc>https://calderonsamuel.github.io/SSEparser/news/index.html</loc>
+  </url>
+  <url>
     <loc>https://calderonsamuel.github.io/SSEparser/reference/SSEparser.html</loc>
   </url>
   <url>
     <loc>https://calderonsamuel.github.io/SSEparser/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>https://calderonsamuel.github.io/SSEparser/reference/parse_sse.html</loc>
   </url>
   <url>
     <loc>https://calderonsamuel.github.io/SSEparser/reference/pipe.html</loc>

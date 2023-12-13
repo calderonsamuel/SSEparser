@@ -23,6 +23,9 @@ You can inherit the class for a custom aplication."><!-- mathjax --><script src=
       <ul class="navbar-nav me-auto"><li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
+</li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -85,7 +88,7 @@ You can inherit the class for a custom aplication.</p>
 </div>
 
 </div><p></p><hr><a id="method-SSEparser-parse_sse"></a><div class="section">
-<h3 id="method-parse-sse-">Method <code>parse_sse()</code><a class="anchor" aria-label="anchor" href="#method-parse-sse-"></a></h3>
+<h3 id="method-parse-sse-">Method <code><a href="parse_sse.html">parse_sse()</a></code><a class="anchor" aria-label="anchor" href="#method-parse-sse-"></a></h3>
 <p>Takes a string that comes from a server sent event and parses it to an R list. You should never overwrite this method.</p><div class="section">
 <h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">SSEparser</span><span class="op">$</span><span class="fu">parse_sse</span><span class="op">(</span><span class="va">event</span><span class="op">)</span></span></code></pre></div><p></p></div>
@@ -94,7 +97,7 @@ You can inherit the class for a custom aplication.</p>
 <div class="section">
 <h4 id="arguments-1">Arguments<a class="anchor" aria-label="anchor" href="#arguments-1"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>event</code></dt>
-<dd><p>A server sent event as specified in the <a href="https://html.spec.whatwg.org/multipage/server-sent-events.html#server-sent-events" class="external-link">HTML spec</a>.</p></dd>
+<dd><p>A length 1 string containing a server sent event as specified in the <a href="https://html.spec.whatwg.org/multipage/server-sent-events.html#server-sent-events" class="external-link">HTML spec</a>.</p></dd>
 
 
 </dl><p></p></div>
