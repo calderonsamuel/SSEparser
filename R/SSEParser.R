@@ -38,6 +38,9 @@
 #' @param parsed_event Event to append to the `events` field.
 #' 
 #' @importFrom R6 R6Class
+#' @importFrom rlang is_empty
+#' @importFrom stringr str_split str_starts str_detect str_split_1 str_trim
+#' @importFrom purrr pluck map discard reduce compact
 #' 
 #' @export
 #' 
