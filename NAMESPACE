@@ -2,5 +2,6 @@
 
 export("%>%")
 export(SSEparser)
+export(parse_sse)
 importFrom(R6,R6Class)
 importFrom(magrittr,"%>%")

@@ -4,7 +4,7 @@
 #' This class can help you parse a single server sent event or a stream of them. 
 #' You can inherit the class for a custom aplication. 
 #' 
-#' @param event A server sent event as specified in the [HTML spec](https://html.spec.whatwg.org/multipage/server-sent-events.html#server-sent-events).
+#' @param event A length 1 string containing a server sent event as specified in the [HTML spec](https://html.spec.whatwg.org/multipage/server-sent-events.html#server-sent-events).
 #' 
 #' @importFrom R6 R6Class
 #' 

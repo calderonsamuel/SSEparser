@@ -35,7 +35,7 @@ If you need finer control for parsing the data received, is better to utilize th
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{event}}{A server sent event as specified in the \href{https://html.spec.whatwg.org/multipage/server-sent-events.html#server-sent-events}{HTML spec}.}
+\item{\code{event}}{A length 1 string containing a server sent event as specified in the \href{https://html.spec.whatwg.org/multipage/server-sent-events.html#server-sent-events}{HTML spec}.}
 }
 \if{html}{\out{</div>}}
 }

@@ -82,7 +82,7 @@ parse_chunk <- function(chunk) {
 		purrr::reduce(c, .init = list())
 }
 
-parse_ss_event <- function(event) {
+parse_sse <- function(event) {
 	chunks <- event |> 
 		stringr::str_split("\n\n") |>
 		purrr::pluck(1L)
