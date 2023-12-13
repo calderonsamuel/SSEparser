@@ -5,29 +5,37 @@
 #' You can inherit the class for a custom aplication. 
 #' 
 #' @param event A length 1 string containing a server sent event as specified in the [HTML spec](https://html.spec.whatwg.org/multipage/server-sent-events.html#server-sent-events).
+#' @param parsed_event Event to append to the `events` field.
 #' 
 #' @importFrom R6 R6Class
 #' 
 #' @export
 SSEparser <- R6::R6Class(
 	classname = "SSEparser",
+	portable = TRUE,
 	public = list(
 		
 		#' @field events List  that contains all the events parsed. When the class is initialized, is just an empty list.
 		events = NULL,
 		
-		#' @description Takes a string representing that comes from a server sent event and parses it to an R list. 
-		#' If you need finer control for parsing the data received, is better to utilize this method inside of a child class instead of overwriting it.
+		#' @description Takes a parsed event and appends it to the `events` field. You can overwrite this method if you decide to extend this class.
+		append_parsed_sse = function(parsed_event) {
+			self$events <- c(self$events, parsed_event)
+			
+			invisible(self)
+		},
+		
+		#' @description Takes a string that comes from a server sent event and parses it to an R list. You should never overwrite this method.
 		parse_sse = function(event) {
 			chunks <- event %>% 
 				stringr::str_split("\n\n") %>%
 				purrr::pluck(1L)
 			
-			parsed_chunks <-  chunks %>% 
+			parsed_event <-  chunks %>% 
 				purrr::map(private$parse_chunk) %>% 
 				purrr::discard(rlang::is_empty)
 			
-			self$events <- c(self$events, parsed_chunks)
+			self$append_parsed_sse(parsed_event)
 			
 			invisible(self)
 		},

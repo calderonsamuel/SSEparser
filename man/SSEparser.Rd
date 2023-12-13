@@ -17,17 +17,34 @@ You can inherit the class for a custom aplication.
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
+\item \href{#method-SSEparser-append_parsed_sse}{\code{SSEparser$append_parsed_sse()}}
 \item \href{#method-SSEparser-parse_sse}{\code{SSEparser$parse_sse()}}
 \item \href{#method-SSEparser-new}{\code{SSEparser$new()}}
 \item \href{#method-SSEparser-clone}{\code{SSEparser$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SSEparser-append_parsed_sse"></a>}}
+\if{latex}{\out{\hypertarget{method-SSEparser-append_parsed_sse}{}}}
+\subsection{Method \code{append_parsed_sse()}}{
+Takes a parsed event and appends it to the \code{events} field. You can overwrite this method if you decide to extend this class.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SSEparser$append_parsed_sse(parsed_event)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{parsed_event}}{Event to append to the \code{events} field.}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-SSEparser-parse_sse"></a>}}
 \if{latex}{\out{\hypertarget{method-SSEparser-parse_sse}{}}}
 \subsection{Method \code{parse_sse()}}{
-Takes a string representing that comes from a server sent event and parses it to an R list.
-If you need finer control for parsing the data received, is better to utilize this method inside of a child class instead of overwriting it.
+Takes a string that comes from a server sent event and parses it to an R list. You should never overwrite this method.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{SSEparser$parse_sse(event)}\if{html}{\out{</div>}}
 }
