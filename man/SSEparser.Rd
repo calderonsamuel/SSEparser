@@ -3,6 +3,9 @@
 \name{SSEparser}
 \alias{SSEparser}
 \title{Parse a Server Sent Event}
+\value{
+An object with R6 class \code{SSEparser}
+}
 \description{
 This class can help you parse a single server sent event or a stream of them.
 You can inherit the class for a custom application.

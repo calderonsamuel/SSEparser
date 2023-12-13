@@ -42,6 +42,8 @@
 #' @importFrom stringr str_split str_starts str_detect str_split_1 str_trim
 #' @importFrom purrr pluck map discard reduce compact
 #' 
+#' @returns An object with R6 class `SSEparser`
+#' 
 #' @export
 #' 
 #' @examples

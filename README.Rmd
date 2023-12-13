@@ -26,7 +26,13 @@ The goal of SSEparser is to provide robust functionality to parse Server-Sent Ev
 
 ## Installation
 
-You can install the development version of SSEparser like so:
+You can install `SEEparser` from CRAN like so:
+
+```r
+install.packages("gptstudio")
+```
+
+Alternatively, you can install the development version like so:
 
 ``` r
 pak::pak("calderonsamuel/SSEparser")
