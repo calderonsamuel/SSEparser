@@ -8,7 +8,7 @@
 #' @details
 #' The [HTML specification](https://html.spec.whatwg.org/multipage/server-sent-events.html#server-sent-events) 
 #' tells us that event streams are composed by chunks (also called *blocks*, or *messages*) and lines. 
-#' A single new line character ("\n") states the end of a line, and two consecutive new line characters ("\n\n") state the end of a chunk.
+#' A single new line character (`\n`) states the end of a line, and two consecutive new line characters (`\n\n`) state the end of a chunk.
 #' 
 #' This means that, in practice, an event can be composed of one or more chunks, and a chunk can be composed of one or more lines.
 #' 

@@ -11,7 +11,7 @@ The \code{\link[=parse_sse]{parse_sse()}} function wraps this class for a more \
 \details{
 The \href{https://html.spec.whatwg.org/multipage/server-sent-events.html#server-sent-events}{HTML specification}
 tells us that event streams are composed by chunks (also called \emph{blocks}, or \emph{messages}) and lines.
-A single new line character ("\n") states the end of a line, and two consecutive new line characters ("\n\n") state the end of a chunk.
+A single new line character (\verb{\\n}) states the end of a line, and two consecutive new line characters (\verb{\\n\\n}) state the end of a chunk.
 
 This means that, in practice, an event can be composed of one or more chunks, and a chunk can be composed of one or more lines.
 
