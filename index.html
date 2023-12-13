@@ -71,15 +71,18 @@
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the development version of SSEparser like so:</p>
+<p>You can install <code>SEEparser</code> from CRAN like so:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"gptstudio"</span><span class="op">)</span></span></code></pre></div>
+<p>Alternatively, you can install the development version like so:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"calderonsamuel/SSEparser"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
 <p>The <code><a href="reference/parse_sse.html">parse_sse()</a></code> function takes a string containing a server-sent event and converts it to a R list.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/calderonsamuel/SSEparser" class="external-link">SSEparser</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">event</span> <span class="op">&lt;-</span> <span class="st">"data: test\nevent: message\nid: 123\n\n"</span></span>
@@ -95,7 +98,7 @@
 <span><span class="co">#&gt; [[1]]$id</span></span>
 <span><span class="co">#&gt; [1] "123"</span></span></code></pre></div>
 <p>Comments are usually received in a line starting with a colon. They are not parsed.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">with_comment</span> <span class="op">&lt;-</span> <span class="st">"data: test\n: comment\nevent: example\n\n"</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/parse_sse.html">parse_sse</a></span><span class="op">(</span><span class="va">with_comment</span><span class="op">)</span></span>
@@ -110,7 +113,7 @@
 <h2 id="use-in-http-requests">Use in HTTP requests<a class="anchor" aria-label="anchor" href="#use-in-http-requests"></a>
 </h2>
 <p><code><a href="reference/parse_sse.html">parse_sse()</a></code> wraps the <code>SSEparser</code> R6 class, which is also exported to be used with real-time streaming data. The following code handles a request with MIME type “text/event-stream”.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">parser</span> <span class="op">&lt;-</span> <span class="va"><a href="reference/SSEparser.html">SSEparser</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">response</span> <span class="op">&lt;-</span> <span class="fu">httr2</span><span class="fu">::</span><span class="fu">request</span><span class="op">(</span><span class="st">"https://postman-echo.com/server-events/3"</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu">httr2</span><span class="fu">::</span><span class="fu">req_body_json</span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
@@ -130,7 +133,7 @@
 <span><span class="co">#&gt;   ..$ data : chr "{\"event\":\"message\",\"request\":\"POST\"}"</span></span>
 <span><span class="co">#&gt;   ..$ id   : chr "1"</span></span>
 <span><span class="co">#&gt;  $ :List of 3</span></span>
-<span><span class="co">#&gt;   ..$ event: chr "message"</span></span>
+<span><span class="co">#&gt;   ..$ event: chr "error"</span></span>
 <span><span class="co">#&gt;   ..$ data : chr "{\"event\":\"message\",\"request\":\"POST\"}"</span></span>
 <span><span class="co">#&gt;   ..$ id   : chr "2"</span></span>
 <span><span class="co">#&gt;  $ :List of 3</span></span>
@@ -142,7 +145,7 @@
 <h2 id="extending-sseparser">Extending SSEparser<a class="anchor" aria-label="anchor" href="#extending-sseparser"></a>
 </h2>
 <p>Following the previous example, it should be useful to parse the content of every <code>data</code> field to be also an R list instead of a JSON string. For that, we can create a new R6 class which inherits from <code>SSEparser</code>. We just need to overwrite the <code>append_parsed_sse()</code> method.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">CustomParser</span> <span class="op">&lt;-</span> <span class="fu">R6</span><span class="fu">::</span><span class="kw"><a href="https://r6.r-lib.org/reference/R6Class.html" class="external-link">R6Class</a></span><span class="op">(</span></span>
 <span>    classname <span class="op">=</span> <span class="st">"CustomParser"</span>,</span>
 <span>    inherit <span class="op">=</span> <span class="va">SSEparser</span>,</span>
@@ -158,17 +161,17 @@
 <span>    <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>Notice that the only thing we are modifying is the parsing of the data field, not the parsing of the event itself. This is the the original method from <code>SSEparser</code>:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">SSEparser</span><span class="op">$</span><span class="va">public_methods</span><span class="op">$</span><span class="va">append_parsed_sse</span></span>
 <span><span class="co">#&gt; function (parsed_event) </span></span>
 <span><span class="co">#&gt; {</span></span>
 <span><span class="co">#&gt;     self$events &lt;- c(self$events, list(parsed_event))</span></span>
 <span><span class="co">#&gt;     invisible(self)</span></span>
 <span><span class="co">#&gt; }</span></span>
-<span><span class="co">#&gt; &lt;bytecode: 0x00000249c3f07358&gt;</span></span>
+<span><span class="co">#&gt; &lt;bytecode: 0x000001933515c630&gt;</span></span>
 <span><span class="co">#&gt; &lt;environment: namespace:SSEparser&gt;</span></span></code></pre></div>
 <p><code>CustomParser</code> uses <code><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">jsonlite::fromJSON()</a></code> to parse the data field of every chunk in the event stream. We can now use our custom class with the previous request<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;This endpoint returns random event field names for each chunk in every request, so the response will not be exactly the same.&lt;/p&gt;"><sup>1</sup></a>.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">parser</span> <span class="op">&lt;-</span> <span class="va">CustomParser</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">response</span> <span class="op">&lt;-</span> <span class="fu">httr2</span><span class="fu">::</span><span class="fu">request</span><span class="op">(</span><span class="st">"https://postman-echo.com/server-events/3"</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu">httr2</span><span class="fu">::</span><span class="fu">req_body_json</span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
@@ -184,13 +187,13 @@
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">parser</span><span class="op">$</span><span class="va">events</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 3</span></span>
 <span><span class="co">#&gt;  $ :List of 3</span></span>
-<span><span class="co">#&gt;   ..$ event: chr "ping"</span></span>
+<span><span class="co">#&gt;   ..$ event: chr "info"</span></span>
 <span><span class="co">#&gt;   ..$ data :List of 2</span></span>
 <span><span class="co">#&gt;   .. ..$ event  : chr "message"</span></span>
 <span><span class="co">#&gt;   .. ..$ request: chr "POST"</span></span>
 <span><span class="co">#&gt;   ..$ id   : chr "1"</span></span>
 <span><span class="co">#&gt;  $ :List of 3</span></span>
-<span><span class="co">#&gt;   ..$ event: chr "info"</span></span>
+<span><span class="co">#&gt;   ..$ event: chr "ping"</span></span>
 <span><span class="co">#&gt;   ..$ data :List of 2</span></span>
 <span><span class="co">#&gt;   .. ..$ event  : chr "message"</span></span>
 <span><span class="co">#&gt;   .. ..$ request: chr "POST"</span></span>
