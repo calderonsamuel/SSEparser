@@ -72,7 +72,7 @@ SSEparser <- R6::R6Class(
 		
 		#' @description Takes a parsed event and appends it to the `events` field. You can overwrite this method if you decide to extend this class.
 		append_parsed_sse = function(parsed_event) {
-			self$events <- c(self$events, parsed_event)
+			self$events <- c(self$events, list(parsed_event))
 			
 			invisible(self)
 		},
@@ -88,7 +88,7 @@ SSEparser <- R6::R6Class(
 				purrr::discard(rlang::is_empty)
 			
 			parsed_chunks %>%
-				purrr::walk(~self$append_parsed_sse(list(.x)))
+				purrr::walk(self$append_parsed_sse)
 			
 			invisible(self)
 		},

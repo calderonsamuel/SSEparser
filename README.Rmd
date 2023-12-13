@@ -59,7 +59,7 @@ parse_sse(with_comment)
 
 ```{r}
 parser <- SSEparser$new()
-httr2::request("https://postman-echo.com/server-events/5") %>%
+response <- httr2::request("https://postman-echo.com/server-events/3") %>%
 	httr2::req_body_json(data = list(
 		event = "message",
 		request = "POST"
@@ -70,21 +70,56 @@ httr2::request("https://postman-echo.com/server-events/5") %>%
 		TRUE
 	})
 
-parser$events
+str(parser$events)
 ```
 
 ## Extending SSEparser
 
-Following the previous example, it should be useful to parse the content of every `data` field to be also an R list instead of a JSON string. For that, we can create a new R6 class which inherits from `SSEparser`.
+Following the previous example, it should be useful to parse the content of every `data` field to be also an R list instead of a JSON string. For that, we can create a new R6 class which inherits from `SSEparser`. We just need to overwrite the `append_parsed_sse()` method.
 
 ```{r}
 CustomParser <- R6::R6Class(
 	classname = "CustomParser",
 	inherit = SSEparser,
 	public = list(
-		
+		initialize = function() {
+			super$initialize()
+		},
+		append_parsed_sse = function(parsed_event) {
+			parsed_event$data <- jsonlite::fromJSON(parsed_event$data)
+			self$events = c(self$events, list(parsed_event))
+			invisible(self)
+		}
 	)
 )
 ```
 
+Notice that the only thing we are modifying is the parsing of the data field, not the parsing of the event itself. This is the the original method from `SSEparser`:
+
+```{r}
+SSEparser$public_methods$append_parsed_sse
+```
+
+
+`CustomParser` uses `jsonlite::fromJSON()` to parse the data field of every chunk in the event stream. We can now use our custom class with the previous request[^1].
+
+[^1]: This endpoint returns random event field names for each chunk in every request, so the response will not be exactly the same.
+
+```{r}
+parser <- CustomParser$new()
+response <- httr2::request("https://postman-echo.com/server-events/3") %>%
+	httr2::req_body_json(data = list(
+		event = "message",
+		request = "POST"
+	)) %>%
+	httr2::req_perform_stream(callback = \(x) {
+		event <- rawToChar(x)
+		parser$parse_sse(event)
+		TRUE
+	})
+
+str(parser$events)
+```
+
+Now instead of a JSON string we can have an R list in the data field **while the stream is still in process**.
 
