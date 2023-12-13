@@ -3,7 +3,8 @@
 #' This functions converts Server-Sent Events to a R list. 
 #' A single string can contain multiple SSEs.
 #' 
-#' @inheritParams SSEparser
+#' @param event A length 1 string containing a server sent event as specified in 
+#' the [HTML spec](https://html.spec.whatwg.org/multipage/server-sent-events.html#server-sent-events).
 #' 
 #' @return An R list on which each element is an event
 #' @export
