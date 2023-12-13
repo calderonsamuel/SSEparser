@@ -60,7 +60,7 @@ The <code><a href="parse_sse.html">parse_sse()</a></code> function wraps this cl
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>The <a href="https://html.spec.whatwg.org/multipage/server-sent-events.html#server-sent-events" class="external-link">HTML specification</a>
 tells us that event streams are composed by chunks (also called <em>blocks</em>, or <em>messages</em>) and lines.
-A single new line character ("") states the end of a line, and two consecutive new line characters ("") state the end of a chunk.</p>
+A single new line character (<code>\n</code>) states the end of a line, and two consecutive new line characters (<code>\n\n</code>) state the end of a chunk.</p>
 <p>This means that, in practice, an event can be composed of one or more chunks, and a chunk can be composed of one or more lines.</p>
 <p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>data<span class="sc">:</span> This is the first chunk, it has one line</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
