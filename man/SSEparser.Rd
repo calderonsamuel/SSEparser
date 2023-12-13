@@ -5,7 +5,57 @@
 \title{Parse a Server Sent Event}
 \description{
 This class can help you parse a single server sent event or a stream of them.
-You can inherit the class for a custom aplication.
+You can inherit the class for a custom application.
+The \code{\link[=parse_sse]{parse_sse()}} function wraps this class for a more \emph{functional} approach.
+}
+\details{
+The \href{https://html.spec.whatwg.org/multipage/server-sent-events.html#server-sent-events}{HTML specification}
+tells us that event streams are composed by chunks (also called \emph{blocks}, or \emph{messages}) and lines.
+A single new line character ("\n") states the end of a line, and two consecutive new line characters ("\n\n") state the end of a chunk.
+
+This means that, in practice, an event can be composed of one or more chunks, and a chunk can be composed of one or more lines.
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{data: This is the first chunk, it has one line
+
+data: This is the second chunk
+extra: It has two lines
+
+data: This is the third chunk, it has an id field. This is common.
+id: 123
+
+: Lines that start with a colon are comments, they will be ignored
+data: This is the forth chunk, it has a comment
+
+data: This is the fifth chunk. Normally you will receive a data field
+custom: But the server can send custom field names. SSEparser parses them too.
+
+}\if{html}{\out{</div>}}
+
+Typically, an event stream will send a single chunk for event, but it is important
+to understand that event != chunk because \code{SSEparser$events} will be a list of
+all the chunks received as it makes a more consistent output.
+}
+\examples{
+example_event <- 
+"data: This is the first chunk, it has one line
+
+data: This is the second chunk
+extra: It has two lines
+
+data: This is the third chunk, it has an id field. This is common.
+id: 123
+
+: Lines that start with a colon are comments, they will be ignored
+data: This is the fourth chunk, it has a comment
+
+data: This is the fifth chunk. Normally you will receive a data field
+custom: But the server can send custom field names. SSEparser parses them too."
+ 
+parser <- SSEparser$new()
+parser$parse_sse(example_event)
+ 
+str(parser$events)
+
 }
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}

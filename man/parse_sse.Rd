@@ -14,7 +14,7 @@ the \href{https://html.spec.whatwg.org/multipage/server-sent-events.html#server-
 An R list on which each element is an event
 }
 \description{
-This functions converts Server-Sent Events to a R list.
+This functions converts Server-Sent Events to a R list. This a wrapper function for the lower level \link{SSEparser} R6 class.
 A single string can contain multiple SSEs.
 }
 \examples{

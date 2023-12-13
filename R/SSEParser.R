@@ -2,7 +2,37 @@
 #' 
 #' @description
 #' This class can help you parse a single server sent event or a stream of them. 
-#' You can inherit the class for a custom aplication. 
+#' You can inherit the class for a custom application. 
+#' The [parse_sse()] function wraps this class for a more *functional* approach.
+#' 
+#' @details
+#' The [HTML specification](https://html.spec.whatwg.org/multipage/server-sent-events.html#server-sent-events) 
+#' tells us that event streams are composed by chunks (also called *blocks*, or *messages*) and lines. 
+#' A single new line character ("\n") states the end of a line, and two consecutive new line characters ("\n\n") state the end of a chunk.
+#' 
+#' This means that, in practice, an event can be composed of one or more chunks, and a chunk can be composed of one or more lines.
+#' 
+#' ```
+#' data: This is the first chunk, it has one line
+#' 
+#' data: This is the second chunk
+#' extra: It has two lines
+#' 
+#' data: This is the third chunk, it has an id field. This is common.
+#' id: 123
+#' 
+#' : Lines that start with a colon are comments, they will be ignored
+#' data: This is the forth chunk, it has a comment
+#' 
+#' data: This is the fifth chunk. Normally you will receive a data field
+#' custom: But the server can send custom field names. SSEparser parses them too.
+#' 
+#' ```
+#' 
+#' Typically, an event stream will send a single chunk for event, but it is important 
+#' to understand that event != chunk because `SSEparser$events` will be a list of
+#' all the chunks received as it makes a more consistent output. 
+#' 
 #' 
 #' @param event A length 1 string containing a server sent event as specified in the [HTML spec](https://html.spec.whatwg.org/multipage/server-sent-events.html#server-sent-events).
 #' @param parsed_event Event to append to the `events` field.
@@ -10,6 +40,28 @@
 #' @importFrom R6 R6Class
 #' 
 #' @export
+#' 
+#' @examples
+#' example_event <- 
+#' "data: This is the first chunk, it has one line
+#' 
+#' data: This is the second chunk
+#' extra: It has two lines
+#' 
+#' data: This is the third chunk, it has an id field. This is common.
+#' id: 123
+#' 
+#' : Lines that start with a colon are comments, they will be ignored
+#' data: This is the fourth chunk, it has a comment
+#'
+#' data: This is the fifth chunk. Normally you will receive a data field
+#' custom: But the server can send custom field names. SSEparser parses them too."
+#'  
+#' parser <- SSEparser$new()
+#' parser$parse_sse(example_event)
+#'  
+#' str(parser$events)
+#' 
 SSEparser <- R6::R6Class(
 	classname = "SSEparser",
 	portable = TRUE,
@@ -31,11 +83,12 @@ SSEparser <- R6::R6Class(
 				stringr::str_split("\n\n") %>%
 				purrr::pluck(1L)
 			
-			parsed_event <-  chunks %>% 
+			parsed_chunks <-  chunks %>% 
 				purrr::map(private$parse_chunk) %>% 
 				purrr::discard(rlang::is_empty)
 			
-			self$append_parsed_sse(parsed_event)
+			parsed_chunks %>%
+				purrr::walk(~self$append_parsed_sse(list(.x)))
 			
 			invisible(self)
 		},

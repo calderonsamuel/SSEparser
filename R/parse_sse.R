@@ -1,6 +1,6 @@
 #' Parse Server-Sent Events
 #' 
-#' This functions converts Server-Sent Events to a R list. 
+#' This functions converts Server-Sent Events to a R list. This a wrapper function for the lower level [SSEparser] R6 class.
 #' A single string can contain multiple SSEs.
 #' 
 #' @param event A length 1 string containing a server sent event as specified in 
