@@ -22,37 +22,69 @@ knitr::opts_chunk$set(
 [![Codecov test coverage](https://codecov.io/gh/calderonsamuel/SSEparser/branch/main/graph/badge.svg)](https://app.codecov.io/gh/calderonsamuel/SSEparser?branch=main)
 <!-- badges: end -->
 
-The goal of SSEparser is to ...
+The goal of SSEparser is to provide robust functionality to parse Server-Sent Events and to build on top of it.
 
 ## Installation
 
 You can install the development version of SSEparser like so:
 
 ``` r
-# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
+pak::pak("calderonsamuel/SSEparser")
 ```
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+The `parse_sse()` function takes a string containing a server-sent event and converts it to a R list.
 
 ```{r example}
 library(SSEparser)
-## basic example code
+
+event <- "data: test\nevent: message\nid: 123\n\n"
+
+parse_sse(event)
+
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+Comments are usually received in a line starting with a colon. They are not parsed.
 
-```{r cars}
-summary(cars)
+```{r}
+with_comment <- "data: test\n: comment\nevent: example\n\n"
+
+parse_sse(with_comment)
 ```
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this.
+## Use in HTTP requests
 
-You can also embed plots, for example:
+`parse_sse()` wraps the `SSEparser` R6 class, which is also exported to be used with real-time streaming data. The following code handles a request with MIME type "text/event-stream".
 
-```{r pressure, echo = FALSE}
-plot(pressure)
+```{r}
+parser <- SSEparser$new()
+httr2::request("https://postman-echo.com/server-events/5") %>%
+	httr2::req_body_json(data = list(
+		event = "message",
+		request = "POST"
+	)) %>%
+	httr2::req_perform_stream(callback = \(x) {
+		event <- rawToChar(x)
+		parser$parse_sse(event)
+		TRUE
+	})
+
+parser$events
 ```
 
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
+## Extending SSEparser
+
+Following the previous example, it should be useful to parse the content of every `data` field to be also an R list instead of a JSON string. For that, we can create a new R6 class which inherits from `SSEparser`.
+
+```{r}
+CustomParser <- R6::R6Class(
+	classname = "CustomParser",
+	inherit = SSEparser,
+	public = list(
+		
+	)
+)
+```
+
+
