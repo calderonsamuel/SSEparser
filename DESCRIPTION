@@ -5,7 +5,7 @@ Authors@R:
     person("Samuel", "Calderon", , "samuel.calderon@uarm.pe", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0001-6847-1210"))
 Description: Functionality to parse server-sent events with a high-level
-    interface that can be extended for custom aplications.
+    interface that can be extended for custom applications.
 License: MIT + file LICENSE
 URL: https://github.com/calderonsamuel/SSEparser,
     https://calderonsamuel.github.io/SSEparser/
