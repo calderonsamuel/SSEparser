@@ -9,3 +9,4 @@
 ^docs$
 ^pkgdown$
 ^dev
+^CRAN-SUBMISSION$
