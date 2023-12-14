@@ -90,15 +90,15 @@ response <- httr2::request("https://postman-echo.com/server-events/3") %>%
 str(parser$events)
 #> List of 3
 #>  $ :List of 3
-#>   ..$ event: chr "info"
+#>   ..$ event: chr "message"
 #>   ..$ data : chr "{\"event\":\"message\",\"request\":\"POST\"}"
 #>   ..$ id   : chr "1"
 #>  $ :List of 3
-#>   ..$ event: chr "error"
+#>   ..$ event: chr "message"
 #>   ..$ data : chr "{\"event\":\"message\",\"request\":\"POST\"}"
 #>   ..$ id   : chr "2"
 #>  $ :List of 3
-#>   ..$ event: chr "ping"
+#>   ..$ event: chr "error"
 #>   ..$ data : chr "{\"event\":\"message\",\"request\":\"POST\"}"
 #>   ..$ id   : chr "3"
 ```
@@ -128,8 +128,8 @@ CustomParser <- R6::R6Class(
 ```
 
 Notice that the only thing we are modifying is the parsing of the data
-field, not the parsing of the event itself. This is the the original
-method from `SSEparser`:
+field, not the parsing of the event itself. This is the original method
+from `SSEparser`:
 
 ``` r
 SSEparser$public_methods$append_parsed_sse
@@ -138,7 +138,7 @@ SSEparser$public_methods$append_parsed_sse
 #>     self$events <- c(self$events, list(parsed_event))
 #>     invisible(self)
 #> }
-#> <bytecode: 0x000001933515c630>
+#> <bytecode: 0x0000022528581ce8>
 #> <environment: namespace:SSEparser>
 ```
 
@@ -162,19 +162,19 @@ response <- httr2::request("https://postman-echo.com/server-events/3") %>%
 str(parser$events)
 #> List of 3
 #>  $ :List of 3
-#>   ..$ event: chr "info"
+#>   ..$ event: chr "message"
 #>   ..$ data :List of 2
 #>   .. ..$ event  : chr "message"
 #>   .. ..$ request: chr "POST"
 #>   ..$ id   : chr "1"
 #>  $ :List of 3
-#>   ..$ event: chr "ping"
+#>   ..$ event: chr "message"
 #>   ..$ data :List of 2
 #>   .. ..$ event  : chr "message"
 #>   .. ..$ request: chr "POST"
 #>   ..$ id   : chr "2"
 #>  $ :List of 3
-#>   ..$ event: chr "error"
+#>   ..$ event: chr "ping"
 #>   ..$ data :List of 2
 #>   .. ..$ event  : chr "message"
 #>   .. ..$ request: chr "POST"
