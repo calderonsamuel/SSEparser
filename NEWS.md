@@ -1,3 +1,5 @@
+# SSEparser (development version)
+
 # SSEparser 0.1.0
 
 - Export the SSEparser class, and the `parse_sse()` function as a higher level wrapper.
