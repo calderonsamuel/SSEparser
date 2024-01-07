@@ -20,6 +20,7 @@ knitr::opts_chunk$set(
 [![CRAN status](https://www.r-pkg.org/badges/version/SSEparser)](https://CRAN.R-project.org/package=SSEparser)
 [![R-CMD-check](https://github.com/calderonsamuel/SSEparser/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/calderonsamuel/SSEparser/actions/workflows/R-CMD-check.yaml)
 [![Codecov test coverage](https://codecov.io/gh/calderonsamuel/SSEparser/branch/main/graph/badge.svg)](https://app.codecov.io/gh/calderonsamuel/SSEparser?branch=main)
+[![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/last-month/SSEparser?color=blue)](https://r-pkg.org/pkg/SSEparser)
 <!-- badges: end -->
 
 The goal of SSEparser is to provide robust functionality to parse Server-Sent Events and to build on top of it.

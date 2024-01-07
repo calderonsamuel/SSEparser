@@ -12,6 +12,8 @@ status](https://www.r-pkg.org/badges/version/SSEparser)](https://CRAN.R-project.
 [![R-CMD-check](https://github.com/calderonsamuel/SSEparser/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/calderonsamuel/SSEparser/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/calderonsamuel/SSEparser/branch/main/graph/badge.svg)](https://app.codecov.io/gh/calderonsamuel/SSEparser?branch=main)
+[![CRAN RStudio mirror
+downloads](https://cranlogs.r-pkg.org/badges/last-month/SSEparser?color=blue)](https://r-pkg.org/pkg/SSEparser)
 <!-- badges: end -->
 
 The goal of SSEparser is to provide robust functionality to parse
@@ -90,7 +92,7 @@ response <- httr2::request("https://postman-echo.com/server-events/3") %>%
 str(parser$events)
 #> List of 3
 #>  $ :List of 3
-#>   ..$ event: chr "message"
+#>   ..$ event: chr "error"
 #>   ..$ data : chr "{\"event\":\"message\",\"request\":\"POST\"}"
 #>   ..$ id   : chr "1"
 #>  $ :List of 3
@@ -98,7 +100,7 @@ str(parser$events)
 #>   ..$ data : chr "{\"event\":\"message\",\"request\":\"POST\"}"
 #>   ..$ id   : chr "2"
 #>  $ :List of 3
-#>   ..$ event: chr "error"
+#>   ..$ event: chr "message"
 #>   ..$ data : chr "{\"event\":\"message\",\"request\":\"POST\"}"
 #>   ..$ id   : chr "3"
 ```
@@ -138,7 +140,7 @@ SSEparser$public_methods$append_parsed_sse
 #>     self$events <- c(self$events, list(parsed_event))
 #>     invisible(self)
 #> }
-#> <bytecode: 0x0000022528581ce8>
+#> <bytecode: 0x000001d822070e00>
 #> <environment: namespace:SSEparser>
 ```
 
@@ -162,7 +164,7 @@ response <- httr2::request("https://postman-echo.com/server-events/3") %>%
 str(parser$events)
 #> List of 3
 #>  $ :List of 3
-#>   ..$ event: chr "message"
+#>   ..$ event: chr "notification"
 #>   ..$ data :List of 2
 #>   .. ..$ event  : chr "message"
 #>   .. ..$ request: chr "POST"
@@ -174,7 +176,7 @@ str(parser$events)
 #>   .. ..$ request: chr "POST"
 #>   ..$ id   : chr "2"
 #>  $ :List of 3
-#>   ..$ event: chr "ping"
+#>   ..$ event: chr "info"
 #>   ..$ data :List of 2
 #>   .. ..$ event  : chr "message"
 #>   .. ..$ request: chr "POST"
