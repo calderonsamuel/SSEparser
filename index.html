@@ -129,7 +129,7 @@
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">parser</span><span class="op">$</span><span class="va">events</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 3</span></span>
 <span><span class="co">#&gt;  $ :List of 3</span></span>
-<span><span class="co">#&gt;   ..$ event: chr "message"</span></span>
+<span><span class="co">#&gt;   ..$ event: chr "error"</span></span>
 <span><span class="co">#&gt;   ..$ data : chr "{\"event\":\"message\",\"request\":\"POST\"}"</span></span>
 <span><span class="co">#&gt;   ..$ id   : chr "1"</span></span>
 <span><span class="co">#&gt;  $ :List of 3</span></span>
@@ -137,7 +137,7 @@
 <span><span class="co">#&gt;   ..$ data : chr "{\"event\":\"message\",\"request\":\"POST\"}"</span></span>
 <span><span class="co">#&gt;   ..$ id   : chr "2"</span></span>
 <span><span class="co">#&gt;  $ :List of 3</span></span>
-<span><span class="co">#&gt;   ..$ event: chr "error"</span></span>
+<span><span class="co">#&gt;   ..$ event: chr "message"</span></span>
 <span><span class="co">#&gt;   ..$ data : chr "{\"event\":\"message\",\"request\":\"POST\"}"</span></span>
 <span><span class="co">#&gt;   ..$ id   : chr "3"</span></span></code></pre></div>
 </div>
@@ -168,7 +168,7 @@
 <span><span class="co">#&gt;     self$events &lt;- c(self$events, list(parsed_event))</span></span>
 <span><span class="co">#&gt;     invisible(self)</span></span>
 <span><span class="co">#&gt; }</span></span>
-<span><span class="co">#&gt; &lt;bytecode: 0x0000022528581ce8&gt;</span></span>
+<span><span class="co">#&gt; &lt;bytecode: 0x000001d822070e00&gt;</span></span>
 <span><span class="co">#&gt; &lt;environment: namespace:SSEparser&gt;</span></span></code></pre></div>
 <p><code>CustomParser</code> uses <code><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">jsonlite::fromJSON()</a></code> to parse the data field of every chunk in the event stream. We can now use our custom class with the previous request<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;This endpoint returns random event field names for each chunk in every request, so the response will not be exactly the same.&lt;/p&gt;"><sup>1</sup></a>.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
@@ -187,7 +187,7 @@
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">parser</span><span class="op">$</span><span class="va">events</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 3</span></span>
 <span><span class="co">#&gt;  $ :List of 3</span></span>
-<span><span class="co">#&gt;   ..$ event: chr "message"</span></span>
+<span><span class="co">#&gt;   ..$ event: chr "notification"</span></span>
 <span><span class="co">#&gt;   ..$ data :List of 2</span></span>
 <span><span class="co">#&gt;   .. ..$ event  : chr "message"</span></span>
 <span><span class="co">#&gt;   .. ..$ request: chr "POST"</span></span>
@@ -199,7 +199,7 @@
 <span><span class="co">#&gt;   .. ..$ request: chr "POST"</span></span>
 <span><span class="co">#&gt;   ..$ id   : chr "2"</span></span>
 <span><span class="co">#&gt;  $ :List of 3</span></span>
-<span><span class="co">#&gt;   ..$ event: chr "ping"</span></span>
+<span><span class="co">#&gt;   ..$ event: chr "info"</span></span>
 <span><span class="co">#&gt;   ..$ data :List of 2</span></span>
 <span><span class="co">#&gt;   .. ..$ event  : chr "message"</span></span>
 <span><span class="co">#&gt;   .. ..$ request: chr "POST"</span></span>
@@ -256,6 +256,7 @@
 <li><a href="https://CRAN.R-project.org/package=SSEparser" class="external-link"><img src="https://www.r-pkg.org/badges/version/SSEparser" alt="CRAN status"></a></li>
 <li><a href="https://github.com/calderonsamuel/SSEparser/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/calderonsamuel/SSEparser/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
 <li><a href="https://app.codecov.io/gh/calderonsamuel/SSEparser?branch=main" class="external-link"><img src="https://codecov.io/gh/calderonsamuel/SSEparser/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://r-pkg.org/pkg/SSEparser" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/last-month/SSEparser?color=blue" alt="CRAN RStudio mirror downloads"></a></li>
 </ul>
 </div>
 
