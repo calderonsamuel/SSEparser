@@ -24,7 +24,7 @@ Server-Sent Events and to build on top of it.
 You can install `SEEparser` from CRAN like so:
 
 ``` r
-install.packages("gptstudio")
+install.packages("SSEparser")
 ```
 
 Alternatively, you can install the development version like so:
@@ -96,7 +96,7 @@ str(parser$events)
 #>   ..$ data : chr "{\"event\":\"message\",\"request\":\"POST\"}"
 #>   ..$ id   : chr "1"
 #>  $ :List of 3
-#>   ..$ event: chr "message"
+#>   ..$ event: chr "notification"
 #>   ..$ data : chr "{\"event\":\"message\",\"request\":\"POST\"}"
 #>   ..$ id   : chr "2"
 #>  $ :List of 3
@@ -140,7 +140,7 @@ SSEparser$public_methods$append_parsed_sse
 #>     self$events <- c(self$events, list(parsed_event))
 #>     invisible(self)
 #> }
-#> <bytecode: 0x000001d822070e00>
+#> <bytecode: 0x00000147d67ed9b8>
 #> <environment: namespace:SSEparser>
 ```
 
@@ -164,7 +164,7 @@ response <- httr2::request("https://postman-echo.com/server-events/3") %>%
 str(parser$events)
 #> List of 3
 #>  $ :List of 3
-#>   ..$ event: chr "notification"
+#>   ..$ event: chr "ping"
 #>   ..$ data :List of 2
 #>   .. ..$ event  : chr "message"
 #>   .. ..$ request: chr "POST"

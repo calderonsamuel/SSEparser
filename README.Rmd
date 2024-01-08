@@ -30,7 +30,7 @@ The goal of SSEparser is to provide robust functionality to parse Server-Sent Ev
 You can install `SEEparser` from CRAN like so:
 
 ```r
-install.packages("gptstudio")
+install.packages("SSEparser")
 ```
 
 Alternatively, you can install the development version like so:
